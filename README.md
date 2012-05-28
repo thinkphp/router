@@ -23,7 +23,7 @@ How to use
            app.get('/bubble', function() {                     
 
                   var arr = [9,8,7,6,5,4,3,2,1,0], 
-                      n = arr.length
+                      n = arr.length,
                       swap = function(i,j) {var aux = arr[i]; arr[i] = arr[j]; arr[j] = aux;}
 
                   console.log(arr);

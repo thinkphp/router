@@ -1,0 +1,191 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<title>Standalone JavaScript Routing</title>
+<style type="text/css">
+.aux {
+    font-size: 20px;
+    letter-spacing: 1px;
+    font-family: menlo,'dejavu sans mono',monospace;
+}
+</style>
+<script type="text/javascript" src="router.js"></script>
+<script type="text/javascript">
+
+       var app = new Router()
+
+           app.get('/bubble', function() {                     
+
+                  var arr = [9,8,7,6,5,4,3,2,1,0], 
+                      n = arr.length
+                      swap = function(i,j) {var aux = arr[i]; arr[i] = arr[j]; arr[j] = aux;}
+
+                  console.log(arr);
+
+                  for(var i=0;i<n-1;i++) {
+                      for(var j=i+1;j<n;j++) {
+                          if(arr[i]>arr[j]) {
+                             swap(i,j)
+                          }
+                      }
+                  }
+
+                  console.log( 'bubble sort' )
+                  console.log(arr);
+           }) 
+
+           app.get('/insert', function() {
+
+                  var arr = [9,8,7,6,5,4,3,2,1,0], 
+                      n = arr.length
+
+                  console.log( arr )
+
+                  for(var i=1;i<n;i++) {
+
+                      var temp = arr[i],
+                          j = i - 1  
+
+                          while(j>=0 && temp < arr[j]) {
+                                arr[j+1] = arr[j]
+                                j--
+                          } 
+                          arr[j+1] = temp 
+                  }
+
+                  console.log( 'insert sort' )
+                  console.log( arr )
+                   
+           }) 
+
+
+           app.get('/select', function(){
+
+                  var arr = [9,8,7,6,5,4,3,2,1], n = arr.length
+
+                  for(var i=0;i<n-1;i++) {
+                      var min = arr[i],
+                          k = i 
+                          for(var j=i+1;j<n;j++) {
+                              if(arr[j] < min) {
+                                 min = arr[j]
+                                 k = j
+                              } 
+                          } 
+
+                          if(k!=j) {
+                             arr[k] = arr[i]
+                             arr[i] = min
+                          }
+                  }
+
+                  console.log( 'selection by min' )
+                  console.log( arr )
+           })
+
+           app.get('/subsets/:n', function( data ) {
+
+                   var n = parseInt( data.n ), 
+                       arr = [], 
+                       out = ""
+
+                   for(var i=0;i<n;i++) {
+                       arr[i] = 0
+                   }  
+
+                   do {
+                      arr[n-1]++
+                                    
+                      for(var j=n-1;j>=0;j--) {  
+
+                          if(arr[j] > 1) {
+                             arr[j] -= 2
+                             arr[j-1] += 1
+                          } 
+                      }
+
+
+                      for(var j=0;j<n;j++) {  
+
+                          if(arr[j]) out += (j+1) + ', ' 
+                      }
+
+                      out += '\n'
+ 
+                      var s = 0   
+                      for(var k = n - 1; k >= 0; k--) {  
+                          s = s + parseInt(arr[k])  
+                      }
+
+                   }while(s < n)
+
+                   console.log( out ) 
+           }) 
+
+           app.get('/services/:denumire', function( data ){
+
+                    console.log(data.denumire)
+           })
+
+           app.get('/quick', function(){
+
+                  var arr = [9,8,7,6,5,4,3,2,1,-1,-2,-3],
+                      k
+
+                  //complexity n log n
+                  quicksort(arr)
+ 
+                  function quicksort(arr) {
+
+                           q(0, arr.length-1)
+                  } 
+
+                  function q(li,ls) {
+
+                           if(li<ls) {
+                              partition(li,ls)
+                              q(li,k)
+                              q(k+1,ls)  
+                           }
+                  }
+
+                  function partition(li,ls) {
+
+                           var i = li, j = ls, i1 = 0, j1 = -1
+
+                           while(i<j) {
+
+                              if(arr[i] > arr[j]) {
+                                  var aux = arr[i]; arr[i] = arr[j]; arr[j] = aux 
+                              }
+
+                              i = i + i1 
+                              j = j + j1
+                           } 
+
+                     k = i
+                  }
+
+                  console.log( 'QuickSort' )
+                  console.log(arr) 
+           }) 
+
+           app.run()
+
+</script>
+</head>
+<body>
+<h1>Standalone JavaScript Routing</h1>
+<p class="aux">
+<a href="#/bubble">bubble sort</a><br/>
+<a href="#/insert">insertion sort</a><br/>
+<a href="#/select">selection by minim</a><br/>
+<a href="#/subsets/3">subsets 3</a><br/>
+<a href="#/services/google">services/google</a><br/>
+<a href="#/services/yahoo">services/yahoo</a><br/>
+<a href="#/quick">quick sort</a>
+</p>
+</body>
+</html>
+

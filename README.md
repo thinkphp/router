@@ -3,6 +3,18 @@ Router
 
 A basic routes framework for JS using hashchange event.
 
+Synopsis
+========
+
+      var app = new Router()
+  
+          app.get('/pages/:n', function( data ){
+
+                 //do something
+          })
+
+          app.run() 
+
 How to use
 ==========
 

@@ -10,7 +10,8 @@ Synopsis
   
           app.get('/pages/:n', function( data ){
 
-                 //do something
+                 //do something with data
+                 console.log( data.n )
           })
 
           app.run() 

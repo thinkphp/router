@@ -75,6 +75,7 @@
                           } 
 
                           if(i != k) {
+
                              arr[k] = arr[i]
                              arr[i] = min
                           }
@@ -130,7 +131,7 @@
 
            app.get('/quick', function(){
 
-                  var arr = [9,8,7,6,5,4,3,2,1,-1,-2,-3],
+                  var arr = [-3,-2,-1,9,8,7,6,5,4,3,2,1],
                       k
 
                   //complexity n log n
@@ -145,8 +146,8 @@
 
                            if(li<ls) {
                               partition(li,ls)
-                              q(li,k)
-                              q(k+1,ls)  
+                              q(li, k-1)
+                              q(k+1, ls)  
                            }
                   }
 
@@ -157,7 +158,14 @@
                            while(i<j) {
 
                               if(arr[i] > arr[j]) {
-                                  var aux = arr[i]; arr[i] = arr[j]; arr[j] = aux 
+
+                                  var aux    = arr[i]; 
+                                      arr[i] = arr[j]; 
+                                      arr[j] = aux 
+
+                                  aux = i1
+                                  i1 = -j1
+                                  j1 = -aux  
                               }
 
                               i = i + i1 
